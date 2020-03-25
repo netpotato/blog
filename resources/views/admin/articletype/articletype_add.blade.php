@@ -38,24 +38,26 @@
 		$("#submit").on("click", function() {
 			var articletype_name = $("#articletype_name").val()
 			if ("" == articletype_name) { alert("类型名称不能为空") }
-			$.ajax({
-				type: "post",
-				url: "/admin/index/add_articletype",
-				headers: {
-			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			    },
-				data: {
-					articletype_name: articletype_name
-				},
-				dataType: "json",
-				success: function(data) {
-					if (1 == data) {
-						alert("添加成功")
-					} else {
-						alert("添加失败")
+			else {
+				$.ajax({
+					type: "post",
+					url: "/admin/index/add_articletype",
+					headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+					data: {
+						articletype_name: articletype_name
+					},
+					dataType: "json",
+					success: function(data) {
+						if (1 == data) {
+							alert("添加成功")
+						} else {
+							alert("添加失败")
+						}
 					}
-				}
-			})
+				})
+			}
 		})
 	})
 </script>

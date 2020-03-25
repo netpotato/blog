@@ -35,7 +35,7 @@
 		</thead>
 		<tbody>
 			@foreach ($articletypelists as $articletypelist)
-				<tr data-id="{{ $articletypelist->id }}">
+				<tr data-id="{{ $articletypelist->id }}" data-name="{{ $articletypelist->type_name }}">
 					<td>
 						<input class="check" type="checkbox" name="check">
 					</td>
@@ -57,25 +57,28 @@
 	$(function() {
 		$(".removetype").on("click", function() {
 			var articletype_id = $(this).parent().parent().attr("data-id")
+			var articletype_name = $(this).parent().parent().attr("data-name")
 
-			$.ajax({
-				type: "post",
-				url: "/admin/index/delete_articletype",
-				headers: {
-			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			    },
-				data: {
-					articletype_id: articletype_id
-				},
-				dataType: "json",
-				success: function(data) {
-					if (1 == data) {
-						location.reload()
-					} else {
-						alert("删除失败")
+			if (confirm("确认删除文章类型 id:"+articletype_id+" 名称:"+articletype_name+" 吗？")) {
+				$.ajax({
+					type: "post",
+					url: "/admin/index/delete_articletype",
+					headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+					data: {
+						articletype_id: articletype_id
+					},
+					dataType: "json",
+					success: function(data) {
+						if (1 == data) {
+							location.reload()
+						} else {
+							alert("删除失败")
+						}
 					}
-				}
-			})
+				})
+			}
 		})
 	})
 </script>

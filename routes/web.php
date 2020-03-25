@@ -23,6 +23,8 @@ Route::namespace('Home')->group(function () {
 	Route::get('/home/index', 'IndexController@index');
 	Route::get('/home/index/index', 'IndexController@index');
 
+	Route::get('/home/article/detail', 'ArticleController@detail');
+
 });
 
 
@@ -41,4 +43,8 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/admin/index/article_add', 'IndexController@article_add');
 	Route::post('/admin/index/add_article', 'IndexController@add_article');
 	Route::post('/admin/index/delete_article', 'IndexController@delete_article');
+
+	Route::post('/admin/index/upload_img', 'IndexController@upload_img');
+	Route::post('/admin/index/upload_edit_img', 'IndexController@upload_edit_img');
+
 });

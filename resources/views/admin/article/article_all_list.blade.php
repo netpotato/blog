@@ -16,10 +16,14 @@
 
 	<table id="mytable" class="layui-table" lay-even="" lay-skin="row" style="margin-top: 5px">
 		<colgroup>
-			<col width="100">
+			<col width="80">
+		    <col width="80">
+		    <col width="100">
 		    <col width="150">
 		    <col width="150">
-		    <col width="200">
+		    <col width="150">
+		    <col width="80">
+		    <col width="80">
 		    <col width="150">
 		</colgroup>
 		<thead>
@@ -31,6 +35,7 @@
 			    <th>文章类型</th>
 			    <th>文章名称</th>
 			    <th>文章概要</th>
+			    <th>添加时间</th>
 			    <th>阅览人数</th>
 			    <th>点赞人数</th>
 			    <th>操作</th>
@@ -38,19 +43,20 @@
 		</thead>
 		<tbody>
 			@foreach ($articlelists as $articlelist)
-				<tr data-id="{{ $articlelist->id }}">
+				<tr data-id="{{ $articlelist->id }}" data-name="{{ $articlelist->name }}">
 					<td>
 						<input class="check" type="checkbox" name="check">
 					</td>
 					<td>{{ $articlelist->id }}</td>
-					<td>{{ $articlelist->articletype_id }}</td>
-					<td>{{ $articlelist->article_name }}</td>
-					<td>{{ $articlelist->article_title }}</td>
+					<td>{{ $articlelist->type_name }}</td>
+					<td>{{ $articlelist->name }}</td>
+					<td>{{ $articlelist->title }}</td>
+					<td>{{ $articlelist->insert_time }}</td>
 					<td>{{ $articlelist->read_num }}</td>
 					<td>{{ $articlelist->like_num }}</td>
 					<td>
 						<button class="layui-btn layui-btn-xs layui-btn-normal updatatype">修改</button>
-						<button class="layui-btn layui-btn-xs layui-btn-normal layui-bg-red removetype">删除</button>
+						<button class="layui-btn layui-btn-xs layui-btn-normal layui-bg-red removearticle">删除</button>
 					</td>
 				</tr>
 			@endforeach
@@ -61,27 +67,29 @@
 <script src="/js/jquery.min.js"></script>
 <script>
 	$(function() {
-		$(".removetype").on("click", function() {
-			var articletype_id = $(this).parent().parent().attr("data-id")
-
-			$.ajax({
-				type: "post",
-				url: "/admin/index/delete_articletype",
-				headers: {
-			        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			    },
-				data: {
-					articletype_id: articletype_id
-				},
-				dataType: "json",
-				success: function(data) {
-					if (1 == data) {
-						location.reload()
-					} else {
-						alert("删除失败")
+		$(".removearticle").on("click", function() {
+			var article_id = $(this).parent().parent().attr("data-id")
+			var article_name = $(this).parent().parent().attr("data-name")
+			if (confirm("确认删除文章 id:"+article_id+" 名称:"+article_name+" 吗？")) {
+				$.ajax({
+					type: "post",
+					url: "/admin/index/delete_article",
+					headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+					data: {
+						article_id: article_id
+					},
+					dataType: "json",
+					success: function(data) {
+						if (1 == data) {
+							location.reload()
+						} else {
+							alert("删除失败")
+						}
 					}
-				}
-			})
+				})
+			}
 		})
 	})
 </script>

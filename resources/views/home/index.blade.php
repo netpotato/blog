@@ -95,14 +95,14 @@
 </li> -->
     @foreach ($articles as $article)
         <li>
-            <i><a href="/"><img src="{{ $article->image_url }}"></a></i>
-            <h3><a href="/">{{ $article->article_name }}</a></h3>
-            <p>{{ $article->article_title }}</p>
+            <i><a href="/"><img src="{{ $article->path }}"></a></i>
+            <h3><a href="/home/article/detail?article_id={{ $article->id }}">{{ $article->name }}</a></h3>
+            <p>{{ $article->title }}</p>
             <div style="font-size: 12px;display: flex;flex-direction: row;">
-                <p>分类 · {{ $article->articletype_id }}</p>
-                <p style="margin-left: 26px;">作者 · {{ $article->articletype_id }}</p>
+                <p>分类 · {{ $article->type_name }}</p>
+                <p style="margin-left: 26px;">作者 · {{ $article->auth }}</p>
                 <p style="margin-left: 16px;">阅读数：{{ $article->read_num }}</p>
-                <p style="margin-left: 26px;">发布时间：{{ $article->like_num }}</p>
+                <p style="margin-left: 26px;">发布时间：{{ $article->insert_time }}</p>
             </div>
         </li>
     @endforeach
