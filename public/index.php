@@ -1,5 +1,4 @@
 <?php
-echo "aaaa";exit;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
