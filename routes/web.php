@@ -25,26 +25,37 @@ Route::namespace('Home')->group(function () {
 
 	Route::get('/home/article/detail', 'ArticleController@detail');
 
+	Route::post('/home/article/read_add', 'ArticleController@read_add');
+	Route::post('/home/article/like_add', 'ArticleController@like_add');
+
 });
 
 
 //后台路由组
 Route::namespace('Admin')->group(function () {
+	Route::get('/admin/login/login', 'LoginController@login');
+	Route::post('/admin/login/to_login', 'LoginController@to_login');
+	Route::get('/admin/login/loging_out', 'LoginController@loging_out');
+});
+
+Route::group(['namespace'=>'Admin', 'middleware'=>'login'], function () {
 	Route::get('/admin', 'IndexController@index');
 	Route::get('/admin/index', 'IndexController@index');
 	Route::get('/admin/index/index', 'IndexController@index');
 
-	Route::get('/admin/index/articletype_list', 'IndexController@articletype_list');
-	Route::get('/admin/index/articletype_add', 'IndexController@articletype_add');
-	Route::post('/admin/index/add_articletype', 'IndexController@add_articletype');
-	Route::post('/admin/index/delete_articletype', 'IndexController@delete_articletype');
+	Route::get('/admin/articletype/list', 'ArticletypeController@articletype_list');
+	Route::get('/admin/articletype/add', 'ArticletypeController@articletype_add');
+	Route::get('/admin/articletype/update', 'ArticletypeController@articletype_update');
+	Route::post('/admin/articletype/to_add', 'ArticletypeController@add_articletype');
+	Route::post('/admin/articletype/to_delete', 'ArticletypeController@delete_articletype');
+	Route::post('/admin/articletype/to_update', 'ArticletypeController@update_articletype');
 
-	Route::get('/admin/index/article_all_list', 'IndexController@article_all_list');
-	Route::get('/admin/index/article_add', 'IndexController@article_add');
-	Route::post('/admin/index/add_article', 'IndexController@add_article');
-	Route::post('/admin/index/delete_article', 'IndexController@delete_article');
-
-	Route::post('/admin/index/upload_img', 'IndexController@upload_img');
-	Route::post('/admin/index/upload_edit_img', 'IndexController@upload_edit_img');
-
+	Route::get('/admin/article/list', 'ArticleController@article_list');
+	Route::get('/admin/article/add', 'ArticleController@article_add');
+	Route::get('/admin/article/update', 'ArticleController@article_update');
+	Route::post('/admin/article/to_add', 'ArticleController@add_article');
+	Route::post('/admin/article/to_delete', 'ArticleController@delete_article');
+	Route::post('/admin/article/to_update', 'ArticleController@update_article');
+	Route::post('/admin/article/upload_img', 'ArticleController@upload_img');
+	Route::post('/admin/article/upload_edit_img', 'ArticleController@upload_edit_img');
 });

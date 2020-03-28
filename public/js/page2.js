@@ -1,6 +1,6 @@
 
 <!--
-var pager = new ETNGpager('list','list2',24,10);//24ä¸ºæ¯é¡µæ˜¾ç¤ºæ¡æ•°ã€‚10ä¸ºå¯¼èˆªæ˜¾ç¤ºèœå•æ•°
+var pager = new ETNGpager('list','list2',24,10);//24ÎªÃ¿Ò³ÏÔÊ¾ÌõÊý¡£10Îªµ¼º½ÏÔÊ¾²Ëµ¥Êý
 var curP = 1;
 page()
 function page(i){
@@ -14,4 +14,3 @@ pager.curP = (n>pager.cntP)?pager.cntP:n;
 pager.create();
 }
 //-->
-

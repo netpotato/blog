@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	<link rel="stylesheet" href="/layui/css/layui.css">
-	<style>
-		* { margin: 0; padding: 0; }
-		html { width: 100%; height: 100%; }
-		body { width: 100%; height: 100%; overflow-y: hidden; }
-	</style>
-</head>
-<body>
+@extends('admin.layout.index')
+
+
+@section('content')
 
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -29,35 +20,32 @@
 		</div>
 	</form>
 
-</body>
-</html>
-
-<script src="/js/jquery.min.js"></script>
-<script>
-	$(function() {
-		$("#submit").on("click", function() {
-			var articletype_name = $("#articletype_name").val()
-			if ("" == articletype_name) { alert("类型名称不能为空") }
-			else {
-				$.ajax({
-					type: "post",
-					url: "/admin/index/add_articletype",
-					headers: {
-				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				    },
-					data: {
-						articletype_name: articletype_name
-					},
-					dataType: "json",
-					success: function(data) {
-						if (1 == data) {
-							alert("添加成功")
-						} else {
-							alert("添加失败")
+	<script>
+		$(function() {
+			$("#submit").on("click", function() {
+				var articletype_name = $("#articletype_name").val()
+				if ("" == articletype_name) { alert("类型名称不能为空") }
+				else {
+					$.ajax({
+						type: "post",
+						url: "/admin/articletype/to_add",
+						headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+						data: {
+							articletype_name: articletype_name
+						},
+						dataType: "json",
+						success: function(data) {
+							if (1 == data) {
+								location.href = "/admin/articletype/list"
+							} else {
+								alert("添加失败")
+							}
 						}
-					}
-				})
-			}
+					})
+				}
+			})
 		})
-	})
-</script>
+	</script>
+@endsection

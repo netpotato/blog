@@ -10,8 +10,6 @@
 <link href="/css/base.css" rel="stylesheet">
 <link href="/css/index.css" rel="stylesheet">
 <link href="/css/m.css" rel="stylesheet">
-<script src="/js/jquery.min.js" type="text/javascript"></script>
-<script src="/js/comm.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -39,7 +37,7 @@
             <p><b>Potato</b>，JS，PHP，Python，Go。</p>
         </ul>
     </div>
-    <div class="wdxc">
+    <!-- <div class="wdxc">
         <h2>我的相册</h2>
         <ul>
             <li><a href="javascript:;"><img src="/images/7.jpg"></a></li>
@@ -49,7 +47,7 @@
             <li><a href="javascript:;"><img src="/images/11.jpg"></a></li>
             <li><a href="javascript:;"><img src="/images/12.jpg"></a></li>
         </ul>
-    </div>
+    </div> -->
     <div class="search">
         <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
             <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
@@ -64,7 +62,7 @@
         <ul>
             <!-- <li><a href="javascript:;">学无止境（33）</a></li> -->
             @foreach ($articletypelists as $articletypelist)
-                <li><a href="">{{ $articletypelist->type_name }}</a></li>
+                <li><a href="">{{ $articletypelist->type_name }} ({{ $articletypelist->type_have_count }})</a></li>
             @endforeach
         </ul>
     </div>
@@ -95,13 +93,13 @@
 </li> -->
     @foreach ($articles as $article)
         <li>
-            <i><a href="/"><img src="{{ $article->path }}"></a></i>
+            <i><a href=""><img src="{{ $article->path }}"></a></i>
             <h3><a href="/home/article/detail?article_id={{ $article->id }}">{{ $article->name }}</a></h3>
             <p>{{ $article->title }}</p>
             <div style="font-size: 12px;display: flex;flex-direction: row;">
                 <p>分类 · {{ $article->type_name }}</p>
                 <p style="margin-left: 26px;">作者 · {{ $article->auth }}</p>
-                <p style="margin-left: 16px;">阅读数：{{ $article->read_num }}</p>
+                <p style="margin-left: 16px;">阅读数：{{ $article->pv }}</p>
                 <p style="margin-left: 26px;">发布时间：{{ $article->insert_time }}</p>
             </div>
         </li>
@@ -117,3 +115,6 @@
 
 </body>
 </html>
+
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/comm.js" type="text/javascript"></script>

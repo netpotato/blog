@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="/layui/css/layui.css">
-	<style>
-		* { margin: 0; padding: 0; }
-		html { width: 100%; height: 100%; }
-		body { width: 100%; height: 100%; overflow-y: hidden; }
-	</style>
-</head>
-<body>
-	
+@extends('admin.layout.index')
+
+
+@section('content')
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<table id="mytable" class="layui-table" lay-even="" lay-skin="row" style="margin-top: 5px">
@@ -50,35 +40,40 @@
 			@endforeach
 		</tbody>
 	</table>
-</body>
-</html>
-<script src="/js/jquery.min.js"></script>
-<script>
-	$(function() {
-		$(".removetype").on("click", function() {
-			var articletype_id = $(this).parent().parent().attr("data-id")
-			var articletype_name = $(this).parent().parent().attr("data-name")
+	<div class="main-paging">
+		{{ $articletypelists->links() }}
+	</div>
+	<script>
+		$(function() {
+			$(".removetype").on("click", function() {
+				var articletype_id = $(this).parent().parent().attr("data-id")
+				var articletype_name = $(this).parent().parent().attr("data-name")
 
-			if (confirm("确认删除文章类型 id:"+articletype_id+" 名称:"+articletype_name+" 吗？")) {
-				$.ajax({
-					type: "post",
-					url: "/admin/index/delete_articletype",
-					headers: {
-				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				    },
-					data: {
-						articletype_id: articletype_id
-					},
-					dataType: "json",
-					success: function(data) {
-						if (1 == data) {
-							location.reload()
-						} else {
-							alert("删除失败")
+				if (confirm("确认删除文章类型 id:"+articletype_id+" 名称:"+articletype_name+" 吗？")) {
+					$.ajax({
+						type: "post",
+						url: "/admin/articletype/to_delete",
+						headers: {
+					        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					    },
+						data: {
+							articletype_id: articletype_id
+						},
+						dataType: "json",
+						success: function(data) {
+							if (1 == data) {
+								location.reload()
+							} else {
+								alert("删除失败")
+							}
 						}
-					}
-				})
-			}
+					})
+				}
+			})
+			$(".updatatype").on("click", function() {
+				var articletype_id = $(this).parent().parent().attr("data-id")
+				location.href = "/admin/articletype/update?id="+articletype_id
+			})
 		})
-	})
-</script>
+	</script>
+@endsection

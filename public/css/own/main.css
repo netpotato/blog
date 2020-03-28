@@ -1,0 +1,25 @@
+#mytable {
+    table-layout: fixed;
+}
+#mytable td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.main-paging {
+	position: absolute;
+	top: 75%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+
+
+
+/* 抵消bootstrap带来的冲突 */
+* {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
