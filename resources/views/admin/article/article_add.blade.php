@@ -38,7 +38,9 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">标签</label>
 			<div class="layui-input-block">
-				<input type="text" name="tag" id="tag" lay-verify="tag" autocomplete="off" placeholder="请输入标签，英文 ',' 隔开，最多五个，超过五个取前五个" class="layui-input">
+				@foreach ($taglists as $taglist)
+					<input type="checkbox" name="tags" data-id="{{ $taglist->id }}" title="{{ $taglist->tag_name }}" value="{{ $taglist->id }}">
+				@endforeach
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -88,26 +90,23 @@
 		}); //建立编辑器
 
 		$("#submit").on("click", function() {
+			var tagarr = new Array();
+			$("input:checkbox[name='tags']:checked").each(function(i){
+				tagarr[i] = $(this).val();
+			});
+			
 			var articletype_id = $("#articletype").val()
 			var name = $("#name").val()
 			var auth = $("#auth").val()
 			var title = $("#title").val()
-			var tag = $("#tag").val()
+			var tags = tagarr.join(",");
 			var image_id = $("#uploadimg_id").val()
 			var content = layedit.getContent(editIndex)
-			var otags = tag.split(',')
-			var tags = []
-			for (var i=0; i<otags.length; i++) {
-				if ("" != otags[i]) {
-					tags.push(otags[i])
-				}
-			}
-			tags = tags.slice(0, 5)
 			if (articletype_id == 0) { layer.msg('请选择文章类型'); }
 			else if (name == "") { layer.msg('请输入文章名称'); }
 			else if (auth == "") { layer.msg('请输入作者名称'); }
 			else if (title == "") { layer.msg('请输入文章摘要'); }
-			else if (tag == "") { layer.msg('请输入文章标签'); }
+			else if (tags == "") { layer.msg('请选择文章标签'); }
 			else if (image_id == "") { layer.msg('请上传文章图片'); }
 			else if (content == "") { layer.msg('请输入文章内容'); }
 			else {
@@ -122,7 +121,7 @@
 						name: name,
 						auth: auth,
 						title: title,
-						tag: tag,
+						tags: tags,
 						image_id: image_id,
 						content: content
 					},

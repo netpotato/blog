@@ -19,7 +19,7 @@ class IndexController extends Controller {
     				    ->leftjoin('image', function($join){ $join->on('article.image_id', '=', 'image.id'); })
     				    ->select('article.id', 'article.name', 'article.auth', 'article.title', 'article.image_id', 'article.insert_time', 'article.pv', 'article.read_num', 'article.like_num', 'articletype.type_name', 'image.path')
     				    ->orderByDesc('article.id')
-    				    ->get();
+    				    ->paginate(6);
         return view('home.index', [
         		'articletypelists' => $articletypelists,
         		'articles' => $articles

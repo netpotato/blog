@@ -24,9 +24,11 @@ class ArticleController extends Controller {
 
     // 文章添加页
     public function article_add() {
-    	$articletypelists = DB::table('articletype')->get();
+        $articletypelists = DB::table('articletype')->get();
+    	$taglists = DB::table('tag')->get();
         return view('admin.article.article_add', [
-	        	'articletypelists' => $articletypelists
+                'articletypelists' => $articletypelists,
+	        	'taglists' => $taglists
         	]);
     }
 
@@ -112,7 +114,7 @@ class ArticleController extends Controller {
     	$name = $request->post('name');
     	$auth = $request->post('auth');
         $title = $request->post('title');
-    	$tag = $request->post('tag');
+    	$tags = $request->post('tags');
     	$image_id = $request->post('image_id');
     	$content = $request->post('content');
 
@@ -121,7 +123,7 @@ class ArticleController extends Controller {
 			'name' => $name,
 			'auth' => $auth,
             'title' => $title,
-			'tag' => $tag,
+			'tags' => $tags,
 			'image_id' => $image_id,
 			'content' => $content,
 			'insert_time' => Date("Y-m-d H:i:s", time()),
@@ -149,7 +151,7 @@ class ArticleController extends Controller {
 		}
     }
 
-    // 修改类型页面
+    // 修改页面
     public function article_update(Request $request) {
         $article_id = $request->post('id');
 
@@ -158,8 +160,12 @@ class ArticleController extends Controller {
                             ->leftjoin('image', function($join){ $join->on('article.image_id', '=', 'image.id'); })
                             ->where('article.id', $article_id)
                             ->first();
+        $article_tags = explode(',', $article_info->tags);
+        $taglists = DB::table('tag')->get();
         return view('admin.article.article_update', [
                 'articletypelists' => $articletypelists,
+                'taglists' => $taglists,
+                'article_tags' => $article_tags,
                 'article_info' => $article_info
             ]);
     }
@@ -171,7 +177,7 @@ class ArticleController extends Controller {
         $name = $request->post('name');
         $auth = $request->post('auth');
         $title = $request->post('title');
-        $tag = $request->post('tag');
+        $tags = $request->post('tags');
         $image_id = $request->post('image_id');
         $content = $request->post('content');
 
@@ -180,7 +186,7 @@ class ArticleController extends Controller {
             'name' => $name,
             'auth' => $auth,
             'title' => $title,
-            'tag' => $tag,
+            'tags' => $tags,
             'image_id' => $image_id,
             'content' => $content,
             'update_time' => Date("Y-m-d H:i:s", time())

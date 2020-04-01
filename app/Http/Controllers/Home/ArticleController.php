@@ -16,13 +16,29 @@ class ArticleController extends Controller {
                                 ->select(DB::raw('articletype_id, count(*) as type_have_count, type_name'))
                                 ->groupBy('article.articletype_id')
                                 ->get();
+        $taglists = DB::table('tag')->get();
     	$articleinfo = DB::table('article')
                             ->leftjoin('articletype', function($join){ $join->on('article.articletype_id', '=', 'articletype.id'); })
-                            ->select('article.id', 'article.name', 'article.auth', 'article.title', 'article.tag', 'article.content', 'article.image_id', 'article.insert_time', 'article.pv', 'article.read_num', 'article.like_num', 'articletype.type_name')
+                            ->select('article.id', 'article.name', 'article.auth', 'article.title', 'article.tags', 'article.content', 'article.image_id', 'article.insert_time', 'article.pv', 'article.read_num', 'article.like_num', 'articletype.type_name')
                             ->where('article.id', '=', $article_id)->first();
+        $article_tags = explode(',', $articleinfo->tags);
+        $pre_articleinfo = DB::table('article')
+                                ->select('article.id', 'article.name')
+                                ->where('article.id', '<', $article_id)
+                                ->orderByDesc('article.id')
+                                ->first();
+        $next_articleinfo = DB::table('article')
+                                ->select('article.id', 'article.name')
+                                ->where('article.id', '>', $article_id)
+                                ->orderBy('article.id')
+                                ->first();
         return view('home.article.detail', [
                 'articletypelists' => $articletypelists,
-                'articleinfo' => $articleinfo
+                'taglists' => $taglists,
+                'articleinfo' => $articleinfo,
+                'article_tags' => $article_tags,
+                'pre_articleinfo' => $pre_articleinfo,
+                'next_articleinfo' => $next_articleinfo
         	]);
     }
 

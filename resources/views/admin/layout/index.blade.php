@@ -49,6 +49,13 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item">
+                    <a href="javascript:;">文章管理</a>
+                    <dl class="layui-nav-child">
+                        <dd data-url-path="/admin/article/list"><a href="/admin/article/list">所有文章列表</a></dd>
+                        <dd data-url-path="/admin/article/add"><a href="/admin/article/add">添加文章</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">文章类型</a>
                     <dl class="layui-nav-child">
                         <dd data-url-path="/admin/articletype/list"><a href="/admin/articletype/list">类型列表</a></dd>
@@ -56,10 +63,10 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">文章管理</a>
+                    <a class="" href="javascript:;">标签类型</a>
                     <dl class="layui-nav-child">
-                        <dd data-url-path="/admin/article/list"><a href="/admin/article/list">所有文章列表</a></dd>
-                        <dd data-url-path="/admin/article/add"><a href="/admin/article/add">添加文章</a></dd>
+                        <dd data-url-path="/admin/tag/list"><a href="/admin/tag/list">标签列表</a></dd>
+                        <dd data-url-path="/admin/tag/add"><a href="/admin/tag/add">添加标签</a></dd>
                     </dl>
                 </li>
                 <!-- <li class="layui-nav-item"><a href="">云市场</a></li>
