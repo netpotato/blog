@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class ArticletypeController extends Controller {
 
     // 类型文章列表页面
-    public function info(Request $request) {
+    public function article_list(Request $request) {
         $articletype_id = $request->get('articletype_id');
         $articletypelists = DB::table('article')
                                 ->leftjoin('articletype', function($join){ $join->on('article.articletype_id', '=', 'articletype.id'); })

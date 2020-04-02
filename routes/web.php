@@ -24,8 +24,8 @@ Route::namespace('Home')->group(function () {
 	Route::get('/home/index/index', 'IndexController@index');
 
 	Route::get('/home/article/detail', 'ArticleController@detail');
-	Route::get('/home/articletype/article_list', 'ArticletypeController@info');
-	Route::get('/home/tag/article_list', 'TagController@info');
+	Route::get('/home/articletype/article_list', 'ArticletypeController@article_list');
+	Route::get('/home/tag/article_list', 'TagController@article_list');
 
 	Route::post('/home/article/read_add', 'ArticleController@read_add');
 	Route::post('/home/article/like_add', 'ArticleController@like_add');

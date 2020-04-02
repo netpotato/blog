@@ -13,6 +13,8 @@
 <link href="/css/m.css" rel="stylesheet">
 <link href="/css/info.css" rel="stylesheet">
 <link href="/css/own/main.css" rel="stylesheet">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/comm.js"></script>
 </head>
 <body>
 
@@ -32,12 +34,15 @@
 </header>
 
 <script>
-window.onload = function () {
-    var obj=null;
-    var As=document.getElementById('nav').getElementsByTagName('a');
-    obj = As[0];
-    for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
-    obj=As[i];}
-    obj.id='selected'
-}
+// window.onload = function () {
+//     var obj=null;
+//     console.log(document.getElementById('nav'))
+//     // var As=document.getElementById('nav').getElementsByTagName('a');
+//     var As=$("nav a");
+
+//     obj = As[0];
+//     for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+//     obj=As[i];}
+//     obj.id='selected'
+// }
 </script>
