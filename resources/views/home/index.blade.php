@@ -3,7 +3,6 @@
 <article>
     <aside class="l_box">
         @include('home.layouts.left.about_me')
-        <!-- @include('home.layouts.left.mypic') -->
         @include('home.layouts.left.search')
         @include('home.layouts.left.articletype')
         @include('home.layouts.left.recommend')
